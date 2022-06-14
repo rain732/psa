@@ -1,0 +1,47 @@
+-how many volunteers ,status ,tasks ,ability to enter profiles ,number of books , Edit
+-how many tasks ,details , Edit
+-how many books ,status ,chapters ,ability to enter book , Edit
+-contact messages
+-home page edit details {slideshow ,testonomial ,about ,members ,services ,contact-us details ,}
+** task maker {select book ,split book to chapters ,choose volunteers ,send task ,edit task ,delete task}
+
+admin{
+  "dashboard" : "we need design for report analysis + sending message"; ***
+  "task_table" : "new table + (edit status, delete)"; ***
+  "task_maker" : "select type 2 for books "; ***
+  "volunteer" : "number of tasks ,ability to enter profiles through email"; ***
+  "books_table" : "download button + image";
+  "add book" : "upload pdf + image";
+  "home edit" : "image";
+  "task maker" : "refreshing issue";
+}
+volunteer{
+  "upload" : "erase message with upload";
+  "download" : "task table + booking button";
+  "profile image" : "";
+  "setting" : "";
+}
+
+
+
+
+selecting contents to tables:>
+
+include "include/connect.php";
+
+$sql_books = "SELECT * FROM books";
+
+$result_books = mysqli_query($conn, $sql_books); 
+
+ <?php 
+                        while ($row = mysqli_fetch_assoc($result_books)) {
+                      ?>
+                    <tr>
+                        <td><?php echo $row ["id"];?></td>
+                        <td><a href="Xvolunteer.php"><?php echo $row ["book_name"];?></a></td>
+                        <td>5 Chapters</td>
+                        <td><?php echo $row ["pdf_path"];?></td>
+                        <td><img src="<?php echo $row ["img"];?>" style="width:65px; height: 90px;"></td>
+                        <td>someone educated</td>
+                        <?php } ?>
+                    </tr>

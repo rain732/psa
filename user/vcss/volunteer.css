@@ -1,0 +1,292 @@
+
+    body {
+        background: rgb(99, 39, 120)
+    }
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8;
+    }
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none
+    }
+    .profile-button:hover {
+        background: #682773;
+    }
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none
+    }
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none
+    }
+    .back:hover {
+        color: #682773;
+        cursor: pointer
+    }
+    .labels {
+        font-size: 11px;
+
+    }
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8;
+    }
+    .divv {
+      width: 495px;
+      padding: 10px;
+      border: 1px solid gray;
+      margin: 0px;
+    }
+    .ds{
+         border-top: 3px solid #bbb;
+    }
+    .divvv {
+      width: 250px;
+      padding: 10px;
+      border: 1px solid gray;
+      margin: 0px;
+    }
+    .flex-parent {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .box {
+      border: 1px solid gray;
+      margin: 5px;
+      padding: 40px;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background: #6b91ee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+}
+
+.wrapper {
+    width: 300px;
+    background: #fff;
+    border-radius: 20px;
+    text-align: center;
+    padding: 0px;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 800;
+    color: #3d4852;
+    margin: 0 0 50px;
+    letter-spacing: 2px;
+}
+
+/*file*/
+.file-wrap {
+    position: relative;
+}
+
+.custom-file {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-setting: 5;
+    cursor: pointer;
+}
+
+.custom-file:hover+label{
+    border-color: #94aee7;
+}
+
+.file-wrap label {
+    position: relative;
+    height: 145px;
+    border: 2px dashed #d1ddf8;
+    color: #3d4852;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 2px;
+    transition: all .25s;
+}
+
+.file-wrap label .blue {
+    color: #688ee8;
+}
+
+/*uploaded items*/
+.uloaded-items {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.file-icon {
+    width: 28px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 13px;
+    line-height: 19px;
+    padding: 0 20px 2px 0;
+    opacity: 0;
+    animation: fadein 1s .25s forwards;
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.item:after {
+    content: "";
+    width: calc(100% - 39px);
+    position: absolute;
+    right: 0;
+    height: 2px;
+    background: #6cc08a;
+    bottom: 0;
+}
+
+.item:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.item span:first-child {
+    margin-right: 10px;
+    height: 32px;
+}
+
+.item span:last-child {
+    height: 15px;
+    position: absolute;
+    right: 0;
+}
+
+.item div {
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+/*svg code*/
+.file-icon--pdf .file-icon__shadow {
+    fill: #f9e3da;
+}
+
+.file-icon--pdf .file-icon__outline,
+.file-icon--pdf .file-icon__type {
+    fill: #ed665f;
+}
+
+.file-icon--doc .file-icon__shadow {
+    fill: #e8f0f8;
+}
+
+.file-icon--doc .file-icon__outline,
+.file-icon--doc .file-icon__type {
+    fill: #4585c7;
+}
+
+.file-icon--xls .file-icon__shadow {
+    fill: #e0f1e6;
+}
+
+.file-icon--xls .file-icon__outline,
+.file-icon--xls .file-icon__type {
+    fill: #6cc08a;
+}
+
+.file-icon--psd .file-icon__shadow {
+    fill: #e8f0f8;
+}
+
+.file-icon--psd .file-icon__outline,
+.file-icon--psd .file-icon__type {
+    fill: #4585c7;
+}
+
+.file-icon--ai .file-icon__shadow {
+    fill: #f3e9d8;
+}
+
+.file-icon--ai .file-icon__outline,
+.file-icon--ai .file-icon__type {
+    fill: #ed9b5f;
+}
+
+.file-icon--png .file-icon__shadow {
+    fill: #fbf3db;
+}
+
+.file-icon--png .file-icon__outline,
+.file-icon--png .file-icon__type {
+    fill: #edca5f;
+}
+
+.file-icon--jpg .file-icon__shadow {
+    fill: #f1e4f6;
+}
+
+.file-icon--jpg .file-icon__outline,
+.file-icon--jpg .file-icon__type {
+    fill: #b276c8;
+}
+
+.file-icon--unknown .file-icon__shadow {
+    fill: #e6e8ef;
+}
+
+.file-icon--unknown .file-icon__outline,
+.file-icon--unknown .file-icon__type {
+    fill: #afb4bc;
+}
+
+.tick-mark {
+    width: 15px;
+}
+
+.tick-mark polyline {
+    fill: #6cc08a;
+}
+
+@media only screen and (max-width: 576px) {
+    .wrapper {
+        width: 230px;
+    }
+}

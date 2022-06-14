@@ -1,0 +1,61 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form action="/action_page.php">
+            <input type="file" id="myFile" name="filename">
+            <input type="submit">
+          </form>
+    </body>
+</html>
+
+<td><?php echo $id;?></td>
+                        <td><?php echo $book;?></td>
+                        <td><?php echo $d;?></td>
+                        <td><?php echo $status;?></td>
+                        <td><?php echo $start;?></td>
+                        <td><?php echo $end;?></td>
+                        <td><?php echo $type;?></td>
+                        <td><?php echo $chapter;?></td>
+                        <td><?php echo $volunteer;?></td>
+                        <td><?php echo $description;?></td>
+                        <?php } ?>
+
+
+
+                        <?php 
+                    
+                        while ($row = mysqli_fetch_assoc($result_task)) {
+                          //define
+                          $id = $row ["id"];
+                          $start = $row ["start_date"];
+                          $type = $row ["type"];
+                          $chapter = $row ["chapter"];
+                          $description = $row ["description"];
+                          // --------------------
+                          $d="";
+                          $d= substr($row ["duration"],0,1) ." Days ".substr($row ["duration"],2,1) . " Hours ".substr($row ["duration"],4,1) . " Minutes";
+                          $x = (int)substr($row ["duration"],0,1);
+                          $y = (int)substr($row ["start_date"],8,2);
+                          $z=$y+$x;
+                          $end = substr( $row ["start_date"],0,5) . substr($row ["start_date"],5,2)  ."-".$z ;
+                          // --------------------
+                          $book_id =  $row ["book_id_fk"];
+                          $sql_book = "SELECT * FROM books WHERE id = $book_id";
+                          $book = "no book";
+                          $row2 = mysqli_fetch_assoc(mysqli_query($conn,$sql_book));
+                          $book = $row2['book_name'];
+                          // --------------------
+                          $s = $row["task_status_id"];
+                          $sql1 = "SELECT * FROM task_status WHERE id = $s";
+                          $result1 = mysqli_query($conn, $sql1);
+                          $row3 = mysqli_fetch_assoc($result1);
+                          $status = $row3['status'];
+                          // --------------------
+                          $v = $row ["volunteer_id_fk"];
+                          $sql2 = "SELECT * FROM volunteers WHERE id = $v";
+                          $result2 = mysqli_query($conn, $sql2);
+                          $row4 = mysqli_fetch_assoc($result2);
+                          $volunteer = $row4['first_name'] . " " . $row4['last_name'];}
+                      ?>
