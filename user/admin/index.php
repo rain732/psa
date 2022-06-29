@@ -1,7 +1,7 @@
 <?php
 include 'include/connect.php';
 session_start();
-
+echo "<h1>".session_status()."</h1>";
 if($_SESSION['Authorized'] === 1){
   echo "";
 }else{
@@ -67,6 +67,7 @@ while($row = mysqli_fetch_assoc($m)){
   <head>
     <title>Admin Panel</title>
     <?php include "include/head.php" ?>
+    <link rel="icon" href="admin.png" type="image/icon type">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 

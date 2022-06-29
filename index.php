@@ -43,6 +43,7 @@ $email = $row4['email'];
                 <div class="navv-items">
                     <ul>
                         <li><a href="index.php" class="active">HOME</a></li>
+                        <li><a href="sessions/logout.php.php" class="active">xyz</a></li>
                         <li><a href="contact_us.php">CONTACT US</a></li>
                         <li id="sign" ><a href="login.php">LOGIN</a></li>
                     </ul>

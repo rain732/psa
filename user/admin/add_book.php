@@ -108,11 +108,11 @@ if(isset($_POST["submit"]) && isset($_FILES["file"]["name"])  && isset($_FILES["
                   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"  enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Book Name</label>
-                        <input name="book_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="image name" >
+                        <input name="book_name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="book name" >
                       </div>
                       <div class="form-group">
                         <label for="exampleFormControlInput1">Upload PDF Book Here</label>
-                        <input name="file" type="file" class="form-control" id="exampleFormControlInput1" placeholder="image body" >
+                        <input name="file" type="file" class="form-control" id="exampleFormControlInput1" placeholder="book pdf" >
                       </div>
                       <div class="form-group">
                         <label for="exampleFormControlInput1">Upload Image</label>

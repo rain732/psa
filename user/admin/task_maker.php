@@ -3,58 +3,97 @@ include 'include/connect.php';
 
 session_start();
 
-if(isset($_POST['submit'])){
-$book_id = 1;
-$task_desc = "";
-$page_numbers = "";
+if(isset($_POST['submit_task'])){
+  $book_id = 1;
+  $task_desc = "";
+  $page_numbers = "";
 
-$task_type = "";
-$duration_day = "";
-$duration_hour = "";
-$duration_minute = "";
-$start_date = "";
-$duration = "";
+  $task_type = "";
+  $duration_day = "";
+  $duration_hour = "";
+  $duration_minute = "";
+  $start_date = "";
+  $duration = "";
 
-if(isset($_POST['book_id'])){
-  $book_id = $_POST['book_id'];
-}
-if(isset($_POST['task_desc'])){
-  $task_desc = $_POST['task_desc'];
-}
-if(isset($_POST['page_numbers'])){
-  $page_numbers = $_POST['page_numbers'];
-}
-
-if(isset($_POST['task_type'])){
-  $task_type = $_POST['task_type'];
-}
-if(isset($_POST['duration_day'])){
-  $duration_day = $_POST['duration_day'];
-} 
-if(isset($_POST['duration_hour'])){
-  $duration_hour = $_POST['duration_hour'];
-}
-if(isset($_POST['duration_minute'])){
-  $duration_minute = $_POST['duration_minute'];
-}
-if(isset($_POST['start_date'])){
-  $start_date = $_POST['start_date'];
-}
-
-$duration = $duration_day . " " . $duration_hour . " ". $duration_minute;
-
-$sql = "INSERT INTO task (book_id_fk, duration, start_date, type, chapter, description, volunteer_id_fk, task_status_id)
-                  VALUES ($book_id, '$duration','$start_date' , '$task_type', '$page_numbers', 'description', NULL , 1)";
-
-
-if (mysqli_query($conn, $sql)) {
-  echo "New record created successfully";
+  if(isset($_POST['book_id'])){
+    $book_id = $_POST['book_id'];
+  }
+  if(isset($_POST['task_desc'])){
+    $task_desc = $_POST['task_desc'];
+  }
+  if(isset($_POST['chapter1']) && isset($_POST['chapter2'])){
+    $page_numbers = $_POST['chapter1'] . "-" . $_POST['chapter2'];
+  }
+  if(isset($_POST['task_desc'])){
+    $description = $_POST['task_desc'];
+  }
   
-} else {
-  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
+  if(isset($_POST['task_type'])){
+    $task_type = $_POST['task_type'];
+  }
+  if(isset($_POST['duration_day'])){
+    $duration_day = $_POST['duration_day'];
+  } 
+  if(isset($_POST['duration_hour'])){
+    $duration_hour = $_POST['duration_hour'];
+  }
+  if(isset($_POST['duration_minute'])){
+    $duration_minute = $_POST['duration_minute'];
+  }
+  if(isset($_POST['start_date'])){
+    $start_date = $_POST['start_date'];
+  }
+
+  $duration = $duration_day . " " . $duration_hour . " ". $duration_minute;
+
+  $sql = "INSERT INTO task (book_id_fk, duration, start_date, type, chapter, description, volunteer_id_fk, task_status_id)
+                    VALUES ($book_id, '$duration','$start_date' , '$task_type', '$page_numbers', '$description', NULL , 1)";
+
+  
+  if (mysqli_query($conn, $sql)) {
+    echo "New record created successfully";
+    
+  } else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  }
 }
 
+//pdf page count
+function getPDFPages($document)
+{
+    $cmd = "/path/to/pdfinfo";           // Linux
+    $cmd = "C:\\xampp\\htdocs\\ps\\user\\xpdf\\bin32\\pdfinfo.exe";  // Windows
+    
+    // Parse entire output
+    // Surround with double quotes if file name has spaces
+    exec("$cmd \"$document\"", $output);
+
+    // Iterate through lines
+    $pagecount = 0;
+    foreach($output as $op)
+    {
+        // Extract the number
+        if(preg_match("/Pages:\s*(\d+)/i", $op, $matches) === 1)
+        {
+            $pagecount = intval($matches[1]);
+            break;
+        }
+    }
+    
+    return $pagecount;
+}
+//check the slashes for path
+function slash($path){
+  $result="uploads_book\\";
+  for($i=0;$i<strlen($path);$i++){
+    if($path[$i]==".'\'."){
+      $result.=".'\\'.";
+    }else{
+      $result.=$path[$i];
+    }
+  }
+  return $result;
+}
 ?>
 <!DOCTYPE html>
 <html
@@ -117,23 +156,19 @@ if (mysqli_query($conn, $sql)) {
                     $sql1 = "select * from books";
                     $result = mysqli_query($conn,$sql1);
                     while($row = mysqli_fetch_assoc($result)){
-                      echo "<option value='" . $row['id']."'>" . $row["book_name"] . "</option>";
-                    }
+                      echo "<option value='" . $row['id']."'>" . $row["book_name"] . ' '. getPDFPages(slash($row['book_pdf'])) . " pages</option>";
+                    } 
                     ?>
                   </select>
                 </div>
 
-                <div class="form-group">
-                  <label for="exampleFormControlInput1">Chapter Size:</label>
-                  <input name="chapter" type="number" min="0" value="0" class="form-control" id="exampleFormControlInput1" placeholder="for example enter the number 1 ,only numbers!" required>
-                  
-                </div>
+      
 
                 <div class="form-group">
                 <label for="exampleFormControlInput1">Pages from to :</label>
                 <br>
-                  From <input name="chapter" type="number" min="0" value="0"  width="25px" id="exampleFormControlInput1" placeholder="for example enter the number 1 ,only numbers!" required>
-                  To <input name="chapter" type="number" min="0" value="0"  width="25px" id="exampleFormControlInput1" placeholder="for example enter the number 1 ,only numbers!" required>
+                  From <input name="chapter1" type="number" min="0" value="0"  width="25px" id="exampleFormControlInput1" placeholder="for example enter the number 1 ,only numbers!" required>
+                  To <input name="chapter2" type="number" min="0" value="0"  width="25px" id="exampleFormControlInput1" placeholder="for example enter the number 1 ,only numbers!" required>
                 </div>
 
                 <div class="form-group">
@@ -166,7 +201,7 @@ if (mysqli_query($conn, $sql)) {
                   <input name="start_date" type="datetime-local" id="task_start" name="task_start" required>
                 </div>
                 <input type="reset">
-                <input type="submit" value="Submit Task">
+                <input type="submit" name="submit_task" value="Submit Task">
 
               </form>
             </div>

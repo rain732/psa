@@ -12,7 +12,8 @@ $vid="";
 $vid=$_SESSION['id'];
 
 if(isset($_POST['new_status'])){
-    $sql = "UPDATE task SET task_status_id = '".$_POST['new_status']."' , volunteer_id_fk = $vid WHERE id = '".$_POST['id']."' ";
+    $sql = "UPDATE task SET task_status_id = '".$_POST['new_status']."'  WHERE id = '".$_POST['id']."' ";
+      
     $result = mysqli_query($conn,$sql);
     header("Location: tasks_table.php");
   }

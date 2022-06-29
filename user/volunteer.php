@@ -83,16 +83,24 @@ if(isset($_POST["submit"]) && isset($_FILES["file"]["name"]) && isset($_POST['ta
  
     <link rel="stylesheet" href="vcss/volunteer.css">
     <style>
-        /* #example thead{
-            width:80%;
-        }
-        #example tbody{
-            width:80%;
-        }
-        #example tfoot{
-            width:80%;
-        } */
-        </style>
+.flex-container {
+  display: flex;
+  height:100vh;
+  flex-direction: column;
+  background-color: DodgerBlue;
+}
+
+.flex-container > div {
+  background-color: #f1f1f1;
+  width: 90%;
+  height:30%;
+  padding:3px;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
+</style>
 </head>
   <body>
 
@@ -151,6 +159,7 @@ if(isset($_POST["submit"]) && isset($_FILES["file"]["name"]) && isset($_POST['ta
                                     $sql1="SELECT * FROM books WHERE id=$book_id";
                                     $row1 = mysqli_fetch_assoc(mysqli_query($conn, $sql1));
                                     $book = $row1['book_name'];
+                                    $bookD = $row1['book_pdf'];
                                     
                                     //----------
                                     $d="";
@@ -170,13 +179,17 @@ if(isset($_POST["submit"]) && isset($_FILES["file"]["name"]) && isset($_POST['ta
                                             <?php
                                             $sql0 = "select * from task_status";
                                             $result0 = mysqli_query($conn,$sql0);
+                                            $o=2;
                                             while($row0 = mysqli_fetch_assoc($result0)){
+                                                if($o==0){break;}
+                                                $o-=0;
                                                 $rid = $row0['id'];
                                                 $task_status_id=$row["task_status_id"];
                                                 $r_status=$row0['status'];
+                                                if($row0['status']=="New" or $row0['status']=="Booked"){
                                             echo "
                                             <option value='$rid' ".(($task_status_id == $rid)?'selected' : "")." >$r_status</option>
-                                            ";
+                                            ";}
                                             }
                                             ?>
                                             </select>
@@ -184,7 +197,7 @@ if(isset($_POST["submit"]) && isset($_FILES["file"]["name"]) && isset($_POST['ta
                                     </td>
                                     <td><?php echo $start; ?></td>
                                     <td><?php echo $type; ?></td>
-                                    <td><a href="admin/uploads_book/<?php echo $book;?>" download>Download</a></td>
+                                    <td><a href="admin/uploads_book/<?php echo $bookD;?>" download>Download</a></td>
                                    
                                 </tr>
                                 
@@ -236,7 +249,7 @@ if(isset($_POST["submit"]) && isset($_FILES["file"]["name"]) && isset($_POST['ta
                                                 $rbook = $row1['book_name'];
                                                 $rr = $rid . " " . $rbook;
                                                 echo "
-                                                <option>$rr</option>
+                                                <option value='$rid'>$rr</option>
                                                 ";
                                             }
                                             ?>
@@ -258,13 +271,31 @@ if(isset($_POST["submit"]) && isset($_FILES["file"]["name"]) && isset($_POST['ta
               <div class="col-md-3" >
                   <div class="p-3 py-5" >
                       <div class="d-flex justify-content-between align-items-center experience"><h6>Edit Profile Page</h6><span class="border px-2 p-1 add-experience"><a href="../user/setting.php"><i class="fa fa-plus"></i>&nbsp;Edit Profile</span></a></div><br>
-                      <div class="d-flex justify-content-between align-items-center experience"><h6>Logout To Home</h6><span class="border px-2 p-1 add-experience"><a href="../sessions/logout.php"><i class="fa fa-plus"></i>&nbsp;Logout</span></a></div><br>
-                      <br><br>
-                      
-                      <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center experience"><h6>Logout To Home</h6><span class="border px-2 p-1 add-experience"><a href="../sessions/logout.php"><i class="fa fa-plus"></i>&nbsp;Logout</span></a></div><br>
+                          <br><br>
+                        <?php 
+                          $sss = "SELECT * FROM vmessage ORDER BY id DESC";
+                          $resultF = mysqli_query($conn,$sss);
+
+                        ?>
+                          <div class="mb-3">
+                          <div class="flex-container">
+                            <?php
+                            $c=3;
+                              while($row = mysqli_fetch_assoc($resultF)){
+                               
+                                if($c==0){break;}
+                                echo "<div><h6>".$row['message']."</h6></div>";
+                                $c-=1;
+                              }
+                              
+                              ?>  
+                            </div>
+                          </div>
+                        </div>
                       </div>                    
                   </div>
-              </div>
+               </div>
           </div>
       </div>
       </div>

@@ -1,6 +1,19 @@
 <?php
 include 'connect.php';
 
+//check if there is SESSION opened:-
+// if (session_status() === PHP_SESSION_NONE) {
+//   session_start();
+//   if($_SESSION['Authorized'] == 1){
+//     header('Location: user/admin');
+//   }elseif($_SESSION['Authorized'] == 0){
+//     header('Location: user/volunteer.php');
+//   }
+//     session_unset();
+
+//     session_destroy();
+// }
+// echo "<h1>".session_status()."</h1>";
 //define vars
 $facebook = "";
 $whatsapp = "";
